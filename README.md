@@ -77,7 +77,6 @@ class Square {
 We can create a red square 10x10 in this way:
 ```json
 {
-  ...,
   "iocca": {
     "redSquare": {
       "type": "io.github.iocca.shapes/Square",
