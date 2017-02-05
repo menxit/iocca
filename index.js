@@ -102,6 +102,6 @@ class Iocca {
 }
 
 module.exports = {
-  Iocca: () => new Iocca,
+  Iocca: new Iocca,
   config: (config, basedir) => new Iocca(config, basedir),
 };
