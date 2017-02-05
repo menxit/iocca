@@ -1,6 +1,7 @@
 # Iocca
 [![Code Climate](https://codeclimate.com/github/menxit/iocca/badges/gpa.svg)](https://codeclimate.com/github/menxit/iocca)
 <img src="https://david-dm.org/menxit/iocca.svg" />
+<img src="https://img.shields.io/npm/dm/iocca.svg" />
 
 Iocca provides a lightweight implementetion of the Dependency Injection design pattern. With Iocca,
 instead of having your objects creating a dependency or asking a factory object to make one for them,
