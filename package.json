@@ -1,10 +1,14 @@
 {
   "name": "iocca",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "IoC for Node.JS",
   "main": "index.js",
   "repository": {},
   "author": "Federico Ginosa",
+  "keywords": [
+    "IoC",
+    "Dependency Injection"
+  ],
   "license": "MIT",
   "scripts": {
     "test": "node_modules/ava/cli.js tests"
