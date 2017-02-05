@@ -1,0 +1,15 @@
+{
+  "name": "iocca",
+  "version": "1.0.0",
+  "description": "IoC for Node.JS",
+  "main": "index.js",
+  "repository": {},
+  "author": "Federico Ginosa",
+  "license": "MIT",
+  "scripts": {
+    "test": "node_modules/ava/cli.js tests"
+  },
+  "devDependencies": {
+    "ava": "^0.18.1"
+  }
+}
