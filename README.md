@@ -1,5 +1,4 @@
 # Iocca
-[![Code Climate](https://codeclimate.com/github/menxit/iocca/badges/gpa.svg)](https://codeclimate.com/github/menxit/iocca)
 <img src="https://david-dm.org/menxit/iocca.svg" />
 <img src="https://img.shields.io/npm/dm/iocca.svg" />
 
