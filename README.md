@@ -37,7 +37,7 @@ class TextEditor {
 ```
 
 So, where are defined the dependencies? Iocca let you to define the dependencies through the package.json.
-In this example you should create a textEditor object that:
+In this example you should create a textEditor object:
 ```json
 {
     "name": "iocca",
