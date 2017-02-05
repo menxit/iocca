@@ -2,7 +2,7 @@ import test from 'ava';
 const path = require('path');
 const basename = path.join(process.cwd(), 'examples');
 test('bigSquare is a big square', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       bigSquare: {
         type: 'io.github.iocca.shapes/Square',
@@ -16,7 +16,7 @@ test('bigSquare is a big square', async t => {
 });
 
 test('smallSquare is a small square', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       smallSquare: {
         type: 'io.github.iocca.shapes/Square',
@@ -30,7 +30,7 @@ test('smallSquare is a small square', async t => {
 });
 
 test('the area of this square should be 100', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       square: {
         type: 'io.github.iocca.shapes/Square',
@@ -45,7 +45,7 @@ test('the area of this square should be 100', async t => {
 });
 
 test('the area of this square should be 100', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       square: {
         type: 'io.github.iocca.shapes/Square',
@@ -60,7 +60,7 @@ test('the area of this square should be 100', async t => {
 });
 
 test('shape is a shape', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       shape: {
         type: 'io.github.iocca.shapes/Shape'
@@ -73,7 +73,7 @@ test('shape is a shape', async t => {
 });
 
 test('triangle is a triangle', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       triangle: {
         type: 'io.github.iocca.shapes/Triangle'
@@ -86,7 +86,7 @@ test('triangle is a triangle', async t => {
 });
 
 test('wrapperOfShape contains a shape', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       wrapperOfShape: {
         type: 'io.github.iocca.wrappers/Wrapper',
@@ -100,7 +100,7 @@ test('wrapperOfShape contains a shape', async t => {
 });
 
 test('ref parameter works', async t => {
-  const Iocca = require('../index').config(
+  const Iocca = require('../index')(
     {
       smallSquare: {
         type: 'io.github.iocca.shapes/Square',

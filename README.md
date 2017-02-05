@@ -53,7 +53,7 @@ In this example you should create a textEditor object:
 ```
 Now, you are able to use the textEditor object in this way:
 ```js
-const Iocca = require('iocca').Iocca;
+const Iocca = require('iocca')();
 
 const textEditor = Iocca.create('textEditor');
 ```

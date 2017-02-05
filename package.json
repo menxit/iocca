@@ -1,6 +1,6 @@
 {
   "name": "iocca",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "IoC for Node.JS",
   "main": "index.js",
   "repository": {},
