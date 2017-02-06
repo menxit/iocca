@@ -8,6 +8,10 @@ class Wrapper {
     return this.shape;
   }
 
+  setShape(shape) {
+    this.shape = shape;
+  }
+
   whatIContain() {
     return 'I contain ' + this.shape.whatIsThis();
   }

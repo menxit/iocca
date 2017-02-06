@@ -90,7 +90,7 @@ test('wrapperOfShape contains a shape', async t => {
     {
       wrapperOfShape: {
         className: 'io.github.iocca.wrappers/Wrapper',
-        constructorArgs: [{ className: 'io.github.iocca.shapes/Shape' }]
+        setShape: [{ className: 'io.github.iocca.shapes/Shape' }]
       },
     },
     basename,
@@ -147,6 +147,5 @@ test('it should be rejected', async t => {
     },
     basename,
   );
-  const error = t.throws(() => Iocca.create('square'));
-  t.is(error, 'This scope doesn\'t exists');
+  t.throws(() => Iocca.create('square'));
 });
