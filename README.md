@@ -97,6 +97,7 @@ you will call the create() method of Iocca.
     "square": {
       "className": "io.github.iocca.shapes/Square",
       "constructorArgs": [10, 10],
+      "scope": "singleton",
       "setColor": ["red"]
     }
   }
