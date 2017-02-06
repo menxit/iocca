@@ -5,6 +5,11 @@ Iocca provides a lightweight implementetion of the Dependency Injection design p
 instead of having your objects creating a dependency or asking a factory object to make one for them,
 you pass the needed dependencies in to the constructor or via property setters through the package.json.
 
+## How to install
+```bash
+npm i iocca -S
+```
+
 ## How it works
 Consider you have an application which has a text editor component and you want to provide spell checking.
 Your standard code would look something like this:
