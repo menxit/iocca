@@ -5,8 +5,8 @@ test('bigSquare is a big square', async t => {
   const Iocca = require('../index')(
     {
       bigSquare: {
-        type: 'io.github.iocca.shapes/Square',
-        args: [50, 90]
+        className: 'io.github.iocca.shapes/Square',
+        constructorArgs: [50, 90]
       },
     },
     basename,
@@ -19,8 +19,8 @@ test('smallSquare is a small square', async t => {
   const Iocca = require('../index')(
     {
       smallSquare: {
-        type: 'io.github.iocca.shapes/Square',
-        args: [50, 23]
+        className: 'io.github.iocca.shapes/Square',
+        constructorArgs: [50, 23]
       },
     },
     basename,
@@ -33,8 +33,8 @@ test('the area of this square should be 100', async t => {
   const Iocca = require('../index')(
     {
       square: {
-        type: 'io.github.iocca.shapes/Square',
-        args: [10, 23],
+        className: 'io.github.iocca.shapes/Square',
+        constructorArgs: [10, 23],
         setB: [10],
       },
     },
@@ -48,8 +48,8 @@ test('the area of this square should be 100', async t => {
   const Iocca = require('../index')(
     {
       square: {
-        type: 'io.github.iocca.shapes/Square',
-        args: [10, 23],
+        className: 'io.github.iocca.shapes/Square',
+        constructorArgs: [10, 23],
         setB: [10],
       },
     },
@@ -63,7 +63,7 @@ test('shape is a shape', async t => {
   const Iocca = require('../index')(
     {
       shape: {
-        type: 'io.github.iocca.shapes/Shape'
+        className: 'io.github.iocca.shapes/Shape'
       },
     },
     path.join(process.cwd(), 'examples'),
@@ -76,7 +76,7 @@ test('triangle is a triangle', async t => {
   const Iocca = require('../index')(
     {
       triangle: {
-        type: 'io.github.iocca.shapes/Triangle'
+        className: 'io.github.iocca.shapes/Triangle'
       },
     },
     basename,
@@ -89,8 +89,8 @@ test('wrapperOfShape contains a shape', async t => {
   const Iocca = require('../index')(
     {
       wrapperOfShape: {
-        type: 'io.github.iocca.wrappers/Wrapper',
-        args: [{ type: 'io.github.iocca.shapes/Shape' }]
+        className: 'io.github.iocca.wrappers/Wrapper',
+        constructorArgs: [{ className: 'io.github.iocca.shapes/Shape' }]
       },
     },
     basename,
@@ -103,16 +103,50 @@ test('ref parameter works', async t => {
   const Iocca = require('../index')(
     {
       smallSquare: {
-        type: 'io.github.iocca.shapes/Square',
-        args: [50, 23]
+        className: 'io.github.iocca.shapes/Square',
+        constructorArgs: [50, 23]
       },
       wrapperOfShape: {
-        type: 'io.github.iocca.wrappers/Wrapper',
-        args: [{ ref: 'smallSquare' }]
+        className: 'io.github.iocca.wrappers/Wrapper',
+        constructorArgs: [{ ref: 'smallSquare' }]
       },
     },
     basename,
   );
   const wrapperOfShape = Iocca.create('wrapperOfShape');
   t.is(wrapperOfShape.whatIContain(), 'I contain a small square');
+});
+
+test('it should be a singleton', async t => {
+  const Iocca = require('../index')(
+    {
+      square: {
+        className: 'io.github.iocca.shapes/Square',
+        scope: 'singleton',
+        constructorArgs: [10, 5],
+      },
+    },
+    basename,
+  );
+  const square = Iocca.create('square');
+  t.is(square.getArea(), 50);
+  square.setB(10);
+  t.is(square.getArea(), 100);
+  const theSameSquare = Iocca.create('square');
+  t.is(theSameSquare.getArea(), 100);
+});
+
+test('it should be rejected', async t => {
+  const Iocca = require('../index')(
+    {
+      square: {
+        className: 'io.github.iocca.shapes/Square',
+        scope: 'aStrangeScope',
+        constructorArgs: [10, 5],
+      },
+    },
+    basename,
+  );
+  const error = t.throws(() => Iocca.create('square'));
+  t.is(error, 'This scope doesn\'t exists');
 });

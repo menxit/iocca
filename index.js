@@ -11,7 +11,20 @@ class Iocca {
     } else {
       throw 'Your configs are not valid';
     }
+    this.singletons = {};
     this.modules = this._loadModules();
+  }
+
+  _getSingletons() {
+    return this.singletons;
+  }
+
+  _setSingletonByID(id, object) {
+    return this.singletons[id] = object;
+  }
+
+  _getSingletonByID(id) {
+    return this.singletons[id];
   }
 
   _loadModules() {
@@ -21,24 +34,24 @@ class Iocca {
     const basedir = this._getBasedir();
     for (let i = 0; i < objects.length; i++) {
       const object = config[objects[i]];
-      let type = object.type;
-      if (!type) {
-        throw 'You must define the type of the file';
+      let className = object.className;
+      if (!className) {
+        throw 'You must define the className of the file';
       } else {
         try {
-          modules[type] = require(path.join(basedir, type));
+          modules[className] = require(path.join(basedir, className));
         } catch (e) {
-          throw 'It seems that the type ' + type + 'doesn\'t exists';
+          throw 'It seems that the class ' + className + 'doesn\'t exists';
         }
       }
 
-      const methods = Object.keys(config[objects[i]]).filter(method => method != 'type');
+      const methods = Object.keys(config[objects[i]]).filter(method => method != 'className' && method != 'scope');
       methods.forEach(method => {
         const params = object[method]
-          .filter(param => param.type)
-          .map(param => param.type)
-          .forEach(type => {
-            modules[type] = require(path.join(basedir, type));
+          .filter(param => param.className)
+          .map(param => param.className)
+          .forEach(className => {
+            modules[className] = require(path.join(basedir, className));
           });
       });
     }
@@ -63,8 +76,8 @@ class Iocca {
 
   _getParamsByObjectNameAndMethodName(objectName, methodName) {
     return this._getConfig()[objectName][methodName].map(param => {
-      if (param.type) {
-        return new (this._getModules()[param.type])
+      if (param.className) {
+        return new (this._getModules()[param.className])
       }
       if (param.ref) {
         return this.create(param.ref);
@@ -73,26 +86,43 @@ class Iocca {
     });
   }
 
-  create(objectName) {
-    const metaObject = this._getConfig()[objectName];
-    if (!metaObject) {
-      throw 'The object ' + objectName + ' does not exists';
+  _createObjectByScope(id, TypeObject, params, scope) {
+    if (scope === undefined || scope === 'prototype') {
+      return new TypeObject(...params);
+    } else if (scope === 'singleton') {
+      const singleton = this._getSingletonByID(id);
+      if (singleton === undefined) {
+        const singleton = new TypeObject(...params);
+        this._setSingletonByID(id, singleton);
+        return this._getSingletonByID(id);
+      }
+      return singleton;
+    } else {
+      throw 'This scope doesn\'t exists';
     }
-    const TypeObject = this._getModules()[metaObject.type];
+  }
+
+  create(id) {
+    const metaObject = this._getConfig()[id];
+    const scope = metaObject.scope;
+    if (!metaObject) {
+      throw 'The object ' + id + ' does not exists';
+    }
+    const TypeObject = this._getModules()[metaObject.className];
 
     let params = [];
-    if (this._getConfig()[objectName].args) {
-      params = this._getParamsByObjectNameAndMethodName(objectName, 'args');
+    if (this._getConfig()[id].constructorArgs) {
+      params = this._getParamsByObjectNameAndMethodName(id, 'constructorArgs');
     }
 
     // Create the object
-    const object = new TypeObject(...params);
+    const object = this._createObjectByScope(id, TypeObject, params, scope);
 
     // Execute the set methods
     Object.keys(metaObject)
-      .filter(method => method !== 'type' && method !== 'args')
+      .filter(method => method !== 'className' && method !== 'constructorArgs' && method !== 'scope')
       .forEach(method => {
-        const params = this._getParamsByObjectNameAndMethodName(objectName, method);
+        const params = this._getParamsByObjectNameAndMethodName(id, method);
         object[method](...params);
       });
 

@@ -45,8 +45,8 @@ In this example you should create a textEditor object:
     "version": "1.0.0",
     "iocca": {
       "textEditor": {
-        "type": "io.github.iocca/TextEditor",
-        "args": [{ "type": "io.github.iocca/Spellchecker" }]
+        "className": "io.github.iocca/TextEditor",
+        "constructorArgs": [{ "className": "io.github.iocca/Spellchecker" }]
       }
     }
 }
@@ -80,10 +80,34 @@ We can create a red square 10x10 in this way:
 {
   "iocca": {
     "redSquare": {
-      "type": "io.github.iocca.shapes/Square",
-      "args": [10, 10],
+      "className": "io.github.iocca.shapes/Square",
+      "constructorArgs": [10, 10],
       "setColor": ["red"]
     }
   }
 }
+```
+
+## How to create a Singleton
+Using Iocca you can also define a singleton. The default scope is 'prototype' - it will generate a new object every time 
+you will call the create() method of Iocca.
+```json
+{
+  "iocca": {
+    "square": {
+      "className": "io.github.iocca.shapes/Square",
+      "constructorArgs": [10, 10],
+      "setColor": ["red"]
+    }
+  }
+}
+```
+```js
+const Iocca = require('iocca')();
+
+const square = Iocca.create('square');
+square.setColor('yellow');
+
+const theSameSquare = Iocca.create('square');
+// theSameSquare.getColor() === 'yellow'  :   TRUE
 ```
