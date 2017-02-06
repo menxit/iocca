@@ -1,7 +1,5 @@
 # Iocca
 <a href="https://travis-ci.org/menxit/iocca"><img src="https://travis-ci.org/menxit/iocca.svg?branch=master" /></a>
-<a href="https://www.npmjs.com/package/iocca"><img src="https://david-dm.org/menxit/iocca.svg" /></a>
-<a href="https://www.npmjs.com/package/iocca"><img src="https://img.shields.io/npm/dm/iocca.svg" /></a>
 
 Iocca provides a lightweight implementetion of the Dependency Injection design pattern. With Iocca,
 instead of having your objects creating a dependency or asking a factory object to make one for them,
