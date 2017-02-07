@@ -117,4 +117,4 @@ const theSameSquare = Iocca.create('square');
 ```
 
 ## License
-<a href="https://github.com/menxit/ionic/blob/master/LICENSE">MIT</a>
+<a href="https://github.com/menxit/iocca/blob/master/LICENSE">MIT</a>
