@@ -115,3 +115,6 @@ square.setColor('yellow');
 const theSameSquare = Iocca.create('square');
 // theSameSquare.getColor() === 'yellow'  :   TRUE
 ```
+
+## License
+<a href="https://github.com/menxit/ionic/blob/master/LICENSE">MIT</a>
